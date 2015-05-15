@@ -142,8 +142,9 @@ class ZoteTess:
         flat = shape.flattened_points()
         ret = []
         for t in triangles:
-            ret.append(Triangle(t, tuples, flat))
-        
+            perhaps = Triangle(t, tuples, flat)
+            if not perhaps.degenerate:
+                ret.append(perhaps)
         return ret
 
 def is_edge(a, b, bounds):
@@ -218,10 +219,7 @@ class Triangle(object):
         are not.
 
         """
-        # print "Triangle constructor gets values:"
-        # print "\ttri:", tri
-        # print "\tbounds:", bounds
-        # print "\tflattened_points:", flattened_points
+        self.degenerate = False
         self.points = [None] * 3 # because that's easy to understand, right?
         self.points[0] = tri[0]
         self.points[1] = tri[1]
@@ -237,7 +235,9 @@ class Triangle(object):
         v1 = vec(flattened_points[tri[0]], flattened_points[tri[1]])
         v2 = vec(flattened_points[tri[0]], flattened_points[tri[2]])
         c = cross(v1, v2)
-        if (c < 0):
+        if abs(c) < 0.0001:
+            self.degenerate = True
+        elif (c < 0):
             # swap points 0 and 2
             tmpPt = self.points[0]
             self.points[0] = self.points[2]
@@ -255,6 +255,7 @@ class Triangle(object):
                 return "f"
             
         return str(self.points[0]) + " " + str(self.points[1]) + " " + str(self.points[2]) + " " + tf(self.edges[0]) + " " + tf(self.edges[1]) + " " + tf(self.edges[2])
+        
 
 class Shape(object):
 
