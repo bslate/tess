@@ -59,21 +59,24 @@ class SquareWithTriangleHoles(Shape):
 def main():    
     zt = ZoteTess()
 
-    response = zt.triangulate(Square())
+    shape = Square()
+    response = zt.triangulate(shape)
     print_triangles("Square", response)
-    response = zt.triangulate(Concave())
-    print_triangles("Concave", response)
-    response = zt.triangulate(TetrisT())
-    print_triangles("TetrisT", response)
-    square_with_holes = SquareWithTriangleHoles()
-    response = zt.triangulate(square_with_holes)
-    print_triangles("Square With Triangle Holes", response)
-            
-    # print "Original data for square with triangle holes:"
-    # square_with_holes.print_paths()
 
-    df = DiskFile("test_data.dat")
-    response = zt.triangulate(df)
+    shape = Concave()
+    response = zt.triangulate(shape)
+    print_triangles("Concave", response)
+
+    shape = TetrisT()
+    response = zt.triangulate(shape)
+    print_triangles("TetrisT", response)
+
+    shape = SquareWithTriangleHoles()
+    response = zt.triangulate(shape)
+    print_triangles("SquareWithTriangleHoles", response)
+    
+    shape = DiskFile("test_data.dat")
+    response = zt.triangulate(shape)
     print_triangles("Disk file (test_data.dat)", response)
 
 if __name__ == "__main__":
