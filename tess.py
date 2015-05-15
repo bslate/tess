@@ -26,7 +26,27 @@ new path. Therefore this sample file contains three paths.
 If the output file name is not given it spills to standard output. The
 output will be formatted like this:
 
-TODO
+# test_data.dat --> Standard Output: 3 paths, 12 triangles
+8 3 9 f f t
+3 8 6 f f f
+7 6 8 f f t
+6 7 2 f f f
+9 2 7 f f t
+2 9 3 f f t
+4 3 6 f f t
+3 4 0 f f t
+4 0 5 f f t
+0 5 1 f f t
+2 1 5 t f f
+6 2 5 f f t
+
+Each line has the format: idx0, idx1, idx2, edge0, edge1, edge2
+
+The indexes refer to points in the order they appear in the input file.
+
+The edges are true/false values. edge0 tells you if the line between
+idx0 and idx1 is a shape boundary. edge1 is for idx1 to idx2, edge2 is
+for idx2 to idx1.
 
 """
 
